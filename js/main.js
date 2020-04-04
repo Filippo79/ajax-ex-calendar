@@ -14,6 +14,10 @@ $(document).ready(function () {
         dataIniziale.add(1, 'month');
         stampaGiorniMese(dataIniziale);
     });
+    $('.mese-prec').click(function(){
+        dataIniziale.subtract(1, 'month');
+        stampaGiorniMese(dataIniziale);
+    });
 
     function stampaFestivi() {
         $.ajax({
