@@ -13,13 +13,13 @@ $(document).ready(function () {
 
     $('.mese-succ').click(function () {//mese successivo
         $('.mese-prec').prop('disabled', false);
-        if(dataFinale.isSameOrBefore(dataIniziale)) {
+        if(dataIniziale.isSameOrAfter(limiteFinale)) {
             alert('NOOOOOOOOO!!!!');
         } else {
             dataIniziale.add(1, 'month');
             stampaGiorniMese(dataIniziale);
             stampaFestivi(dataIniziale);
-            if(dataFinale.isSameOrBefore(limiteIniziale)) {
+            if(dataIniziale.isSameOrAfter(limiteFinale)) {
                 $('.mese-succ').prop('disabled', true);
             }
         }

@@ -14,7 +14,7 @@
      cursor: pointer;
 }
 
-.btn-navigation:disabled {
+.btn-navigation:disabled { */
     background-color: white;
     cursor: not-allowed;
 
