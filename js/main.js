@@ -25,6 +25,7 @@ $(document).ready(function () {
         }
     });
     $('.mese-prec').click(function() {
+        $('.mese-succ').prop('disabled', false);
         if(dataIniziale.isSameOrBefore(limiteIniziale)){
             alert('NOOOOOOOO!!!!');
         } else {
