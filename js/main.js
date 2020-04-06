@@ -4,22 +4,22 @@ $(document).ready(function () {
 
     // Stampare il mese di Gennaio 2018
     // Tramite click stampare il mese successivo
-    var dataFinale = moment('2018-12-31');
     var dataIniziale = moment('2018-01-01');
     var limiteIniziale = moment('2018-01-01');
+    var dataFinale = moment('2018-12-31');
     var limiteFinale =  moment('2018-12-31');
     stampaGiorniMese(dataIniziale); // Inizializzazione Calendario
     stampaFestivi(dataIniziale);
 
     $('.mese-succ').click(function () {//mese successivo
         $('.mese-prec').prop('disabled', false);
-        if(dataFinale.isSameOrBefore(limiteFinale)) {
+        if(dataFinale.isSameOrBefore(dataIniziale)) {
             alert('NOOOOOOOOO!!!!');
         } else {
             dataIniziale.add(1, 'month');
             stampaGiorniMese(dataIniziale);
             stampaFestivi(dataIniziale);
-            if(dataFinale.isSameOrBefore(limiteFinale)) {
+            if(dataFinale.isSameOrBefore(limiteIniziale)) {
                 $('.mese-succ').prop('disabled', true);
             }
         }
