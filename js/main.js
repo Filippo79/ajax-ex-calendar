@@ -1,31 +1,49 @@
 $(document).ready(function () {
-
     var htmlGiorno = $('#calendar-template').html();
     var templateGiorno = Handlebars.compile(htmlGiorno);
 
     // Stampare il mese di Gennaio 2018
     // Tramite click stampare il mese successivo
-
+    var dataFinale = moment('2018-12-31');
     var dataIniziale = moment('2018-01-01');
+    var limiteIniziale = moment('2018-01-01');
+    var limiteFinale =  moment('2018-12-31');
     stampaGiorniMese(dataIniziale); // Inizializzazione Calendario
-    stampaFestivi();
+    stampaFestivi(dataIniziale);
 
-    $('.mese-succ').click(function () {
-        dataIniziale.add(1, 'month');
-        stampaGiorniMese(dataIniziale);
+    $('.mese-succ').click(function () {//mese successivo
+        $('.mese-prec').prop('disabled', false);
+        if(dataFinale.isSameOrBefore(limiteFinale)) {
+            alert('NOOOOOOOOO!!!!');
+        } else {
+            dataIniziale.add(1, 'month');
+            stampaGiorniMese(dataIniziale);
+            stampaFestivi(dataIniziale);
+            if(dataFinale.isSameOrBefore(limiteFinale)) {
+                $('.mese-succ').prop('disabled', true);
+            }
+        }
     });
-    $('.mese-prec').click(function(){
-        dataIniziale.subtract(1, 'month');
-        stampaGiorniMese(dataIniziale);
+    $('.mese-prec').click(function() {
+        if(dataIniziale.isSameOrBefore(limiteIniziale)){
+            alert('NOOOOOOOO!!!!');
+        } else {
+            dataIniziale.subtract(1, 'month');
+            stampaGiorniMese(dataIniziale);
+            stampaFestivi(dataIniziale);
+            if(dataIniziale.isSameOrBefore(limiteIniziale)) {
+                $('.mese-prec').prop('disabled', true);
+            }
+        }
     });
 
-    function stampaFestivi() {
+    function stampaFestivi(meseCorrente) {
         $.ajax({
             url: 'https://flynn.boolean.careers/exercises/api/holidays',
             method: 'GET',
             data: {
-                year: 2018,
-                month: 0
+                year: meseCorrente.year(),
+                month: meseCorrente.month()
             },
             success: function (data) {
                 var giorniFestivi = data.response;
